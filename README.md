@@ -1,6 +1,7 @@
 # SwipeDismissHelper
 支持Android侧滑退出，类似iOS效果
 ## 设置方式
+在setContentView后设置
 在Android5.0下需要配置android:windowIsTranslucent = true才可以生效
 ```
 public class MainActivity extends AppCompatActivity {

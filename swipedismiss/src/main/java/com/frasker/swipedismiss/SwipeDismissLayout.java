@@ -164,6 +164,10 @@ public class SwipeDismissLayout extends FrameLayout {
             return super.onInterceptTouchEvent(ev);
         }
 
+        if (getContext() instanceof Activity && ((Activity) getContext()).isTaskRoot()) {
+            return super.onInterceptTouchEvent(ev);
+        }
+
         // Offset because the view is translated during swipe, match X with raw X. Active touch
         // coordinates are mostly used by the velocity tracker, so offset it to match the raw
         // coordinates which is what is primarily used elsewhere.
