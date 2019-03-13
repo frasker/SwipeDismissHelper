@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
         new SwipeDismissHelper(this);
     }
 }
+```
 ##依赖
 项目放在jitpack上
 
