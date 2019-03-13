@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <settings default="baidu">
+    <module2copyright>
+      <element module="All" copyright="baidu" />
+    </module2copyright>
+  </settings>
+</component>
