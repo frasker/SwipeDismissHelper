@@ -46,6 +46,6 @@ allprojects {
    }
 }
 dependencies {
-        implementation 'com.github.frasker:SwipeDismissHelper:v1.0.0-alpha'
+        implementation 'com.github.frasker:SwipeDismissHelper:v1.0.3-alpha'
 }
 ```
