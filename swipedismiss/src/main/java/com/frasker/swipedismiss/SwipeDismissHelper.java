@@ -83,8 +83,7 @@ public class SwipeDismissHelper {
                 swipeDismissLayout.setOnSwipeProgressChangedListener(
                         new SwipeDismissLayout.OnSwipeProgressChangedListener() {
                             @Override
-                            public void onSwipeProgressChanged(
-                                    SwipeDismissLayout layout, float alpha, float translate) {
+                            public void onSwipeProgressChanged(float translate) {
                                 int scrollX = (int) translate;
                                 content.scrollTo(-scrollX, 0);
                                 if (scrollX == 0) {
@@ -92,18 +91,24 @@ public class SwipeDismissHelper {
                                 } else {
                                     content.setBackgroundColor(Color.TRANSPARENT);
                                 }
+                                content.setAlpha(progressToAlpha(translate / content.getWidth()));
                             }
 
                             @Override
-                            public void onSwipeCancelled(SwipeDismissLayout layout) {
+                            public void onSwipeCancelled() {
                                 content.scrollTo(0, 0);
                                 content.setBackgroundDrawable(background);
+                                content.setAlpha(1.0f);
                             }
                         });
             }
         }
 
 
+    }
+
+    private float progressToAlpha(float progress) {
+        return 1 - progress * progress * progress;
     }
 
     private void dispatchOnWindowDismissed(boolean finishTask, boolean suppressWindowTransition) {

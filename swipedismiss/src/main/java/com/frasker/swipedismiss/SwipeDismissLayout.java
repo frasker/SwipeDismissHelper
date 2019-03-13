@@ -41,14 +41,12 @@ public class SwipeDismissLayout extends FrameLayout {
         /**
          * Called when the layout has been swiped and the position of the window should change.
          *
-         * @param alpha     A number in [0, 1] representing what the alpha transparency of the window
-         *                  should be.
          * @param translate A number in [0, w], where w is the width of the
          *                  layout. This is equivalent to progress * layout.getWidth().
          */
-        void onSwipeProgressChanged(SwipeDismissLayout layout, float alpha, float translate);
+        void onSwipeProgressChanged(float translate);
 
-        void onSwipeCancelled(SwipeDismissLayout layout);
+        void onSwipeCancelled();
     }
 
     private boolean mIsWindowNativelyTranslucent;
@@ -275,8 +273,7 @@ public class SwipeDismissLayout extends FrameLayout {
 
     private void setProgress(float deltaX) {
         if (mProgressListener != null && deltaX >= 0) {
-            mProgressListener.onSwipeProgressChanged(
-                    this, progressToAlpha(deltaX / getWidth()), deltaX);
+            mProgressListener.onSwipeProgressChanged(deltaX);
         }
     }
 
@@ -296,7 +293,7 @@ public class SwipeDismissLayout extends FrameLayout {
             }
         }
         if (mProgressListener != null) {
-            mProgressListener.onSwipeCancelled(this);
+            mProgressListener.onSwipeCancelled();
         }
     }
 
@@ -427,9 +424,6 @@ public class SwipeDismissLayout extends FrameLayout {
         }
     }
 
-    private float progressToAlpha(float progress) {
-        return 1 - progress * progress * progress;
-    }
 
     private Activity findActivity() {
         Context context = getContext();
