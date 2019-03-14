@@ -28,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SwipeDismissHelper swipeDismissHelper = new SwipeDismissHelper(this, new 	 SwipeDismissLayout.OnSwipeProgressChangedListener() {
             @Override
-            public void onSwipeProgressChanged(SwipeDismissLayout layout, float alpha, float translate) {
+            public void onSwipeProgressChanged(float translate) {
                 //TODO
             }
 
             @Override
-            public void onSwipeCancelled(SwipeDismissLayout layout) {
+            public void onSwipeCancelled() {
 		//TODO
             }
         });
