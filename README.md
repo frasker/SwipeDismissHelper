@@ -1,5 +1,9 @@
 # SwipeDismissHelper
 支持Android侧滑退出，类似iOS效果
+
+<img src="https://github.com/frasker/SwipeDismissHelper/blob/master/captures/68A79288C64A925019635523FC10368E.jpg" width="30%">
+
+
 ## 设置方式
 在setContentView后设置
 在Android5.0下需要配置android:windowIsTranslucent = true才可以生效
