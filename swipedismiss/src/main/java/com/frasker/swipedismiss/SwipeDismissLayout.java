@@ -290,7 +290,6 @@ public class SwipeDismissLayout extends FrameLayout {
         if (!mIsWindowNativelyTranslucent) {
             Activity activity = findActivity();
             if (activity != null && mActivityTranslucencyConverted) {
-                //activity.convertFromTranslucent();
                 Utils.convertActivityFromTranslucent(activity);
                 mActivityTranslucencyConverted = false;
             }
