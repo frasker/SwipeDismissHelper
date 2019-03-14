@@ -102,6 +102,9 @@ public class SwipeDismissLayout extends FrameLayout {
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
         TypedArray a = context.getTheme().obtainStyledAttributes(LAYOUT_ATTRS);
         mIsWindowNativelyTranslucent = a.getBoolean(0, false);
+        if (mIsWindowNativelyTranslucent) {
+            mActivityTranslucencyConverted = true;
+        }
         a.recycle();
     }
 
@@ -331,14 +334,19 @@ public class SwipeDismissLayout extends FrameLayout {
                 Activity activity = findActivity();
                 if (activity != null) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        Utils.convertActivityToTranslucent(activity, new Utils.PageTranslucentListener() {
+                        Utils.convertActivityToTranslucentAfterL(activity, new Utils.PageTranslucentListener() {
                             @Override
                             public void onPageTranslucent() {
                                 mActivityTranslucencyConverted = true;
                             }
                         });
                     } else {
-                        mActivityTranslucencyConverted = Utils.convertActivityToTranslucent(activity);
+                        Utils.convertActivityToTranslucentBeforeL(activity, new Utils.PageTranslucentListener() {
+                            @Override
+                            public void onPageTranslucent() {
+                                mActivityTranslucencyConverted = true;
+                            }
+                        });
                     }
                 }
             }

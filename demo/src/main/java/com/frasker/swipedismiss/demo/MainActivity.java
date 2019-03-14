@@ -1,7 +1,3 @@
-/*
- * Copyright (C) 2019 Baidu, Inc. All Rights Reserved.
- */
-
 package com.frasker.swipedismiss.demo;
 
 import android.content.Intent;

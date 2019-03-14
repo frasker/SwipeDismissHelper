@@ -3,6 +3,7 @@ package com.frasker.swipedismiss;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -19,24 +20,29 @@ public class SwipeDismissHelper {
     private static final String TAG = "SwipeDismissHelper";
     private Activity mActivity;
     private SwipeDismissLayout.OnSwipeProgressChangedListener mListener;
+    private boolean enabled = false;
     private static final int[] LAYOUT_ATTRS = new int[]{
             android.R.attr.windowIsTranslucent
     };
 
     public SwipeDismissHelper(@NonNull Activity activity) {
         this.mActivity = activity;
-        initSwipeLayout();
     }
 
     public SwipeDismissHelper(@NonNull Activity activity, SwipeDismissLayout.OnSwipeProgressChangedListener listener) {
         this.mActivity = activity;
         this.mListener = listener;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            initSwipeLayout();
-        } else {
-            Log.e(TAG, "SwipeDismissHelper only support api19 and after");
-        }
+    }
 
+    public void enable() {
+        if (!enabled) {
+            enabled = true;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                initSwipeLayout();
+            } else {
+                Log.e(TAG, "SwipeDismissHelper only support api19 and after");
+            }
+        }
     }
 
     private void initSwipeLayout() {
@@ -68,7 +74,8 @@ public class SwipeDismissHelper {
             windowContentView.addView(swipeDismissLayout, 0);
 
             final View content = mActivity.getWindow().getDecorView();
-            final Drawable background = content.getBackground();
+            mActivity.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            content.setBackgroundColor(Color.TRANSPARENT);
             swipeDismissLayout.setOnDismissedListener(new SwipeDismissLayout.OnDismissedListener() {
                 @Override
                 public void onDismissed(SwipeDismissLayout layout) {
@@ -79,25 +86,17 @@ public class SwipeDismissHelper {
             if (mListener != null) {
                 swipeDismissLayout.setOnSwipeProgressChangedListener(mListener);
             } else {
-                content.setBackgroundColor(Color.TRANSPARENT);
                 swipeDismissLayout.setOnSwipeProgressChangedListener(
                         new SwipeDismissLayout.OnSwipeProgressChangedListener() {
                             @Override
                             public void onSwipeProgressChanged(float translate) {
-                                int scrollX = (int) translate;
-                                content.scrollTo(-scrollX, 0);
-                                if (scrollX == 0) {
-                                    content.setBackgroundDrawable(background);
-                                } else {
-                                    content.setBackgroundColor(Color.TRANSPARENT);
-                                }
+                                content.setX(translate);
                                 content.setAlpha(progressToAlpha(translate / content.getWidth()));
                             }
 
                             @Override
                             public void onSwipeCancelled() {
-                                content.scrollTo(0, 0);
-                                content.setBackgroundDrawable(background);
+                                content.setX(0);
                                 content.setAlpha(1.0f);
                             }
                         });

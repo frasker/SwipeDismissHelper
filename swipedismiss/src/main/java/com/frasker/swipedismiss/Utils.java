@@ -1,7 +1,3 @@
-/*
- * Copyright (C) 2019 Baidu, Inc. All Rights Reserved.
- */
-
 package com.frasker.swipedismiss;
 
 import android.app.Activity;
@@ -52,8 +48,7 @@ public class Utils {
      * This call has no effect on non-translucent activities or on activities
      * with the {@link android.R.attr#windowIsFloating} attribute.
      */
-    public static boolean convertActivityToTranslucent(Activity activity) {
-        boolean success = false;
+    public static void convertActivityToTranslucentBeforeL(Activity activity, PageTranslucentListener listener) {
         try {
             Class<?>[] classes = Activity.class.getDeclaredClasses();
             Class<?> translucentConversionListenerClazz = null;
@@ -65,19 +60,19 @@ public class Utils {
             Method method = Activity.class.getDeclaredMethod("convertToTranslucent",
                     translucentConversionListenerClazz);
             method.setAccessible(true);
-            method.invoke(activity, new Object[]{
-                    null
-            });
-            success = true;
+
+            SwipeInvocationHandler myInvocationHandler = new SwipeInvocationHandler(new WeakReference<PageTranslucentListener>(listener));
+            Object obj = Proxy.newProxyInstance(Activity.class.getClassLoader(), new Class[]{translucentConversionListenerClazz}, myInvocationHandler);
+
+            method.invoke(activity, obj);
         } catch (Throwable t) {
             t.printStackTrace();
         }
-        return success;
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public static void convertActivityToTranslucent(Activity activity, PageTranslucentListener listener) {
+    public static void convertActivityToTranslucentAfterL(Activity activity, PageTranslucentListener listener) {
         try {
             Method getActivityOptions = Activity.class.getDeclaredMethod("getActivityOptions");
             getActivityOptions.setAccessible(true);
@@ -119,7 +114,6 @@ public class Utils {
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             Log.d(TAG, "invoke: end time: " + System.currentTimeMillis());
-            Log.d(TAG, "invoke: 被回调了");
             try {
                 boolean success = (boolean) args[0];
                 if (success && listener.get() != null) {

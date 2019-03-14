@@ -1,7 +1,3 @@
-/*
- * Copyright (C) 2019 Baidu, Inc. All Rights Reserved.
- */
-
 package com.frasker.swipedismiss.demo;
 
 import android.graphics.Color;
@@ -19,31 +15,23 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        new SwipeDismissHelper(this);
+        new SwipeDismissHelper(this).enable();
 
         // 支持自己重写滑动效果，默认是android 自带效果，滑动 + 透明度
 //        final View content = getWindow().getDecorView();
-//        final Drawable background = content.getBackground();
 //        new SwipeDismissHelper(this, new SwipeDismissLayout.OnSwipeProgressChangedListener() {
 //            @Override
 //            public void onSwipeProgressChanged(float translate) {
-//                int scrollX = (int) translate;
-//                content.scrollTo(-scrollX, 0);
-//                if (scrollX == 0) {
-//                    content.setBackgroundDrawable(background);
-//                } else {
-//                    content.setBackgroundColor(Color.TRANSPARENT);
-//                }
+//                content.setX(translate);
 //                content.setAlpha(progressToAlpha(translate / content.getWidth()));
 //            }
 //
 //            @Override
 //            public void onSwipeCancelled() {
-//                content.scrollTo(0, 0);
-//                content.setBackgroundDrawable(background);
+//                content.setX(0);
 //                content.setAlpha(1.0f);
 //            }
-//        });
+//        }).enable();
     }
 
 
