@@ -9,11 +9,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new SwipeDismissHelper(this);
+        SwipeDismissHelper swipeDismissHelper = new SwipeDismissHelper(this);
+	swipeDismissHelper.enable();
     }
 }
 ```
-## 自己处理侧滑逻辑
+## 支持自己处理侧滑逻辑
 ```
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new SwipeDismissHelper(this, new SwipeDismissLayout.OnSwipeProgressChangedListener() {
+        SwipeDismissHelper swipeDismissHelper = new SwipeDismissHelper(this, new 	 SwipeDismissLayout.OnSwipeProgressChangedListener() {
             @Override
             public void onSwipeProgressChanged(SwipeDismissLayout layout, float alpha, float translate) {
                 //TODO
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 		//TODO
             }
         });
+	swipeDismissHelper.enable();
     }
 }
 ```
