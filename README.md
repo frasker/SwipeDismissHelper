@@ -45,13 +45,5 @@ public class MainActivity extends AppCompatActivity {
 项目放在jitpack上
 
 ```
-allprojects {
-   repositories {
-	...
-	maven { url 'https://jitpack.io' }
-   }
-}
-dependencies {
-        implementation 'com.github.frasker:SwipeDismissHelper:v1.0.6-alpha'
-}
+implementation 'com.frasker:swipedismiss:0.0.1'
 ```
