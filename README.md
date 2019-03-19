@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 ## 依赖
-项目放在jitpack上
 
 ```
 implementation 'com.frasker:swipedismiss:0.0.1'
