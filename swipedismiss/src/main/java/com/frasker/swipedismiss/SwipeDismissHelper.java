@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 public class SwipeDismissHelper {
     private static final String TAG = "SwipeDismissHelper";
     private Activity mActivity;
+    private SwipeDismissLayout swipeDismissLayout;
     private SwipeDismissLayout.OnSwipeProgressChangedListener mListener;
     private boolean enabled = false;
     private static final int[] LAYOUT_ATTRS = new int[]{
@@ -45,6 +46,10 @@ public class SwipeDismissHelper {
         }
     }
 
+    public void setDismissable(boolean dismissable){
+        swipeDismissLayout.setDismissable(dismissable);
+    }
+
     private void initSwipeLayout() {
         final TypedArray a = mActivity.getTheme().obtainStyledAttributes(LAYOUT_ATTRS);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -58,7 +63,7 @@ public class SwipeDismissHelper {
         final ViewGroup windowContentView = (ViewGroup) mActivity.getWindow().findViewById(android.R.id.content);
         if (windowContentView != null) {
             final LayoutInflater inflater = LayoutInflater.from(mActivity);
-            SwipeDismissLayout swipeDismissLayout = (SwipeDismissLayout) inflater.inflate(R.layout.swipe_dismiss_content, null);
+            swipeDismissLayout = (SwipeDismissLayout) inflater.inflate(R.layout.swipe_dismiss_content, null);
             // There might be Views already added to the Window's content view so we need to
             // migrate them to our content view
             while (windowContentView.getChildCount() > 0) {
