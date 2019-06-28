@@ -46,8 +46,10 @@ public class SwipeDismissHelper {
         }
     }
 
-    public void setDismissable(boolean dismissable){
-        swipeDismissLayout.setDismissable(dismissable);
+    public void setDismissable(boolean dismissable) {
+        if (swipeDismissLayout != null) {
+            swipeDismissLayout.setDismissable(dismissable);
+        }
     }
 
     private void initSwipeLayout() {
