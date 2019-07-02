@@ -44,5 +44,5 @@ public class MainActivity extends AppCompatActivity {
 ## 依赖
 
 ```
-implementation 'com.frasker:swipedismiss:0.0.1'
+implementation 'com.frasker:swipedismiss:0.0.3'
 ```
